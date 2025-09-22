@@ -8,7 +8,7 @@ const linkVariants = cva(
     variants: {
       variant: {
         default:
-          'text-white hover:text-primary-300 active:text-primary-700 focus-visible:outline-primary-300 text-base/[24px] font-medium ring-0 outline-0 hover:underline hover:underline-offset-2 focus-visible:outline-2',
+          'text-white active:text-primary-300 hover:text-primary-100 focus-visible:text-primary-100 active:underline focus-visible:outline-primary-300 text-base/[24px] ring-0 outline-0 hover:underline hover:underline-offset-2 focus-visible:outline-2',
         asChild: '',
       },
       size: {
