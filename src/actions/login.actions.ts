@@ -1,7 +1,6 @@
 'use server';
 
 import { LoginSchemaType } from '@/schemas/login.schema';
-// import { api } from '@/services/api.service';
 import { cookies } from 'next/headers';
 import { parse } from 'cookie';
 
@@ -11,13 +10,10 @@ export async function LoginAction(
   try {
     const response = await fetch('http://localhost:3000/api/login', {
       method: 'POST',
-      headers: {},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
       credentials: 'include',
     });
-    // const response = await api.post('/api/auth/login', data, {
-    //   withCredentials: true,
-    // });
 
     if (response.status === 400) {
       return {
@@ -75,8 +71,7 @@ export async function LoginAction(
 
     return {
       success: true,
-      message:
-        JSON.stringify(response.json()) || 'Login realizado com sucesso.',
+      message: `${response.statusText}` || 'Login realizado com sucesso.',
     };
   } catch (error) {
     console.error('Erro ao fazer login:', error);
