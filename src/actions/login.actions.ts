@@ -3,24 +3,38 @@
 import { LoginSchemaType } from '@/schemas/login.schema';
 import { cookies } from 'next/headers';
 import { parse } from 'cookie';
+import { env } from '@/lib/env';
+
+interface LoginDataResponse {
+  access_token: string;
+  token_type: string;
+}
+
+interface LoginResponse extends LoginDataResponse {
+  detail?: string;
+}
 
 export async function LoginAction(
   data: LoginSchemaType,
 ): Promise<{ success: boolean; message: string }> {
   try {
-    const response = await fetch('http://localhost:3000/api/login', {
+    const { rememberMe, ...dataTest } = data;
+
+    const response = await fetch(`${env.API_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: JSON.stringify(dataTest),
       credentials: 'include',
     });
+
+    const responseData: LoginResponse = await response.json();
 
     if (response.status === 400) {
       return {
         success: false,
         message:
-          JSON.stringify(response.json()) ||
-          `Campos obrigatórios não preenchidos ou inválidos. ${response.json()}`,
+          `${JSON.stringify(responseData.detail)}` ||
+          `Campos obrigatórios não preenchidos ou inválidos. ${JSON.stringify(JSON.stringify(responseData.detail)) || ''}`,
       };
     }
 
@@ -28,15 +42,15 @@ export async function LoginAction(
       return {
         success: false,
         message:
-          JSON.stringify(response.json()) ||
-          `Credenciais inválidas. ${response.json()}`,
+          `${JSON.stringify(responseData.detail)}` ||
+          `Credenciais inválidas. ${JSON.stringify(responseData.detail) || ''}`,
       };
     }
 
     if (response.status !== 200) {
       return {
         success: false,
-        message: `Erro ao fazer login. ${JSON.stringify(response.statusText)}`,
+        message: `Erro ao fazer login. ${JSON.stringify(responseData.detail) || 'Erro desconhecido'} \n Status: ${response.status} `,
       };
     }
 
@@ -71,7 +85,7 @@ export async function LoginAction(
 
     return {
       success: true,
-      message: `${response.statusText}` || 'Login realizado com sucesso.',
+      message: 'Login realizado com sucesso.',
     };
   } catch (error) {
     console.error('Erro ao fazer login:', error);
