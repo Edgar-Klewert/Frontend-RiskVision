@@ -1,7 +1,3 @@
-Aqui está um modelo de **README.md** para o repositório **Frontend-RiskVision**, baseado no link fornecido e no contexto do seu projeto:
-
----
-
 # Frontend-RiskVision
 
 ## Descrição
