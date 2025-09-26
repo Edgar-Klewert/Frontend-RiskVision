@@ -54,7 +54,9 @@ export async function LoginAction(
       };
     }
 
-    const setCookieHeader = response.headers.get('set-cookie');
+    // const setCookieHeader = response.headers.get('set-cookie');
+
+    const setCookieHeader = responseData.access_token;
 
     if (!setCookieHeader) {
       return {
@@ -63,18 +65,18 @@ export async function LoginAction(
       };
     }
 
-    const parsed = parse(setCookieHeader);
+    // const parsed = parse(setCookieHeader);
 
-    const token = parsed['access_token'];
+    // const token = parsed['access_token'];
 
-    if (!token) {
-      return {
-        success: false,
-        message: 'Token de autenticação não encontrado no cookie',
-      };
-    }
+    // if (!token) {
+    //   return {
+    //     success: false,
+    //     message: 'Token de autenticação não encontrado no cookie',
+    //   };
+    // }
 
-    (await cookies()).set('access_token', token, {
+    (await cookies()).set('access_token', setCookieHeader, {
       path: '/',
       httpOnly: true,
       sameSite: 'lax',
