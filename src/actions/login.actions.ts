@@ -2,7 +2,6 @@
 
 import { LoginSchemaType } from '@/schemas/login.schema';
 import { cookies } from 'next/headers';
-import { parse } from 'cookie';
 import { env } from '@/lib/env';
 
 interface LoginDataResponse {
@@ -54,29 +53,16 @@ export async function LoginAction(
       };
     }
 
-    // const setCookieHeader = response.headers.get('set-cookie');
+    const access_token = responseData.access_token;
 
-    const setCookieHeader = responseData.access_token;
-
-    if (!setCookieHeader) {
+    if (!access_token) {
       return {
         success: false,
         message: 'Cookie não encontrado',
       };
     }
 
-    // const parsed = parse(setCookieHeader);
-
-    // const token = parsed['access_token'];
-
-    // if (!token) {
-    //   return {
-    //     success: false,
-    //     message: 'Token de autenticação não encontrado no cookie',
-    //   };
-    // }
-
-    (await cookies()).set('access_token', setCookieHeader, {
+    (await cookies()).set('access_token', access_token, {
       path: '/',
       httpOnly: true,
       sameSite: 'lax',
