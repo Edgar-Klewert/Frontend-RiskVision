@@ -2,7 +2,6 @@
 
 import { LoginSchemaType } from '@/schemas/login.schema';
 import { cookies } from 'next/headers';
-import { parse } from 'cookie';
 import { env } from '@/lib/env';
 
 interface LoginDataResponse {
@@ -54,23 +53,12 @@ export async function LoginAction(
       };
     }
 
-    const setCookieHeader = response.headers.get('set-cookie');
-
-    if (!setCookieHeader) {
-      return {
-        success: false,
-        message: 'Cookie não encontrado',
-      };
-    }
-
-    const parsed = parse(setCookieHeader);
-
-    const token = parsed['access_token'];
+    const token = responseData.access_token;
 
     if (!token) {
       return {
         success: false,
-        message: 'Token de autenticação não encontrado no cookie',
+        message: 'Cookie não encontrado',
       };
     }
 
