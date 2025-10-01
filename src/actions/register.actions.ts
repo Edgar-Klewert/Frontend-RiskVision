@@ -23,7 +23,7 @@ export async function RegisterAction(
       name: nameComplete,
       email: data.email,
       password: data.password,
-      role_id: 2, // Usuário padrão
+      role_id: 2,
     };
 
     const response = await fetch(`${env.API_URL}/users`, {
