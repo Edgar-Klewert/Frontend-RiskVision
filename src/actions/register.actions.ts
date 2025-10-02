@@ -26,7 +26,7 @@ export async function RegisterAction(
       role_id: 2,
     };
 
-    const response = await fetch(`${env.API_URL}/users`, {
+    const response = await fetch(`${env.API_URL}/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dataFilter),
@@ -38,7 +38,7 @@ export async function RegisterAction(
     if (response.status !== 200) {
       return {
         success: false,
-        message: `Erro ao fazer cadastro. ${responseData.detail || 'Erro desconhecido'} \n Status: ${response.status} `,
+        message: `${responseData.detail || 'Erro desconhecido'} \n Status: ${response.status} `,
       };
     }
 
