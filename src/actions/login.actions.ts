@@ -33,7 +33,7 @@ export async function LoginAction(
         success: false,
         message:
           `${JSON.stringify(responseData.detail)}` ||
-          `Campos obrigatórios não preenchidos ou inválidos. ${JSON.stringify(JSON.stringify(responseData.detail)) || ''}`,
+          `Campos obrigatórios não preenchidos ou inválidos. ${responseData.detail || ''}`,
       };
     }
 
@@ -42,14 +42,14 @@ export async function LoginAction(
         success: false,
         message:
           `${JSON.stringify(responseData.detail)}` ||
-          `Credenciais inválidas. ${JSON.stringify(responseData.detail) || ''}`,
+          `Credenciais inválidas. ${responseData.detail || ''}`,
       };
     }
 
     if (response.status !== 200) {
       return {
         success: false,
-        message: `Erro ao fazer login. ${JSON.stringify(responseData.detail) || 'Erro desconhecido'} \n Status: ${response.status} `,
+        message: `Erro ao fazer login. ${responseData.detail || 'Erro desconhecido'} \n Status: ${response.status} `,
       };
     }
 
