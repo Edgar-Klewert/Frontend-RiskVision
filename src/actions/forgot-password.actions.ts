@@ -10,6 +10,10 @@ interface ForgotPsswordDataResponse {
 
 interface ForgotPsswordResponse extends ForgotPsswordDataResponse {
   detail?: string;
+  user: {
+    name: string;
+    email: string;
+  };
 }
 
 export async function ForgotPasswordAction(
@@ -18,8 +22,8 @@ export async function ForgotPasswordAction(
   const { confirmPassword, ...dataFilter } = data;
 
   try {
-    const response = await fetch(`${env.API_URL}/forgot-password`, {
-      method: 'POST',
+    const response = await fetch(`${env.API_URL}/users/recover-password`, {
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dataFilter),
       credentials: 'include',
@@ -32,7 +36,7 @@ export async function ForgotPasswordAction(
         success: false,
         message:
           `${JSON.stringify(responseData.detail)}` ||
-          `Campos obrigatórios não preenchidos ou inválidos. ${JSON.stringify(JSON.stringify(responseData.detail)) || ''}`,
+          `Campos obrigatórios não preenchidos ou inválidos. ${responseData.detail || ''}`,
       };
     }
 
@@ -40,21 +44,21 @@ export async function ForgotPasswordAction(
       return {
         success: false,
         message:
-          `${JSON.stringify(responseData.detail)}` ||
-          `Credenciais inválidas. ${JSON.stringify(responseData.detail) || ''}`,
+          `${responseData.detail}` ||
+          `Credenciais inválidas. ${responseData.detail || ''}`,
       };
     }
 
     if (response.status !== 200) {
       return {
         success: false,
-        message: `Erro ao redefinir a senha. ${JSON.stringify(responseData.detail) || 'Erro desconhecido'} \n Status: ${response.status} `,
+        message: `Erro ao redefinir a senha. ${responseData.detail || 'Erro desconhecido'} \n Status: ${response.status} `,
       };
     }
 
     return {
       success: true,
-      message: 'Senha redefinida com sucesso.',
+      message: `${responseData.message}\n Usuário: ${responseData.user.name} - ${responseData.user.email}`,
     };
   } catch (error) {
     console.error('Erro ao redefinir a senha:', error);
