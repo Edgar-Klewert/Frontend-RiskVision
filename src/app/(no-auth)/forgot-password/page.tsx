@@ -73,7 +73,7 @@ export default function ForgotPassword() {
       <Container className='px-6'>
         <div className='flex w-full flex-col items-center gap-10 rounded-xl bg-white px-8 py-6 text-black'>
           <Button
-            className='self-start text-center'
+            className='self-start text-center text-black'
             variant='router'
             size='icon'
             onClick={() => router.back()}

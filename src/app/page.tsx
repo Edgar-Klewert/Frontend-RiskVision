@@ -8,10 +8,6 @@ export default function Home() {
       <Container>
         <h1 className='text-2xl font-bold'>To Do:</h1>
         <ul className='list-disc'>
-          <li>Página de Esqueceu a Senha</li>
-          <li>
-            Implementar funções genéricas para a requisição de esqueceu a senha
-          </li>
           <li>
             Wireframe da Landing Page &#40; Página inicial com informações sobre
             o sistema &#41;
@@ -50,6 +46,15 @@ export default function Home() {
               </li>
               <li>
                 Implementar funções genéricas para a requisição de cadastro
+              </li>
+              <li>
+                <Link href={`${PAGES.FORGOT_PASSWORD}`}>
+                  Página de Esqueceu a Senha
+                </Link>
+              </li>
+              <li>
+                Implementar funções genéricas para a requisição de esqueceu a
+                senha
               </li>
             </ul>
           </div>
