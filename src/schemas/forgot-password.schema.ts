@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const forgotPasswordSchema = z
   .object({
     email: z.email('Invalid email').min(1, 'Email is required'),
-    password: z
+    new_password: z
       .string()
       .min(6, 'Password must have at least 6 characters')
       .regex(/[a-z]/, 'Password must contain at least 1 lowercase letter')
@@ -12,7 +12,7 @@ export const forgotPasswordSchema = z
     confirmPassword: z.string().min(6, 'Invalid password'),
   })
   .superRefine((val, ctx) => {
-    if (val.password !== val.confirmPassword) {
+    if (val.new_password !== val.confirmPassword) {
       ctx.addIssue({
         code: 'custom',
         message: 'Passwords do not match',

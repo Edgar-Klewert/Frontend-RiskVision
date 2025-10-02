@@ -35,7 +35,7 @@ export default function ForgotPassword() {
     mode: 'all',
     defaultValues: {
       email: '',
-      password: '',
+      new_password: '',
       confirmPassword: '',
     },
   });
@@ -118,7 +118,7 @@ export default function ForgotPassword() {
                 />
                 <FormField
                   control={form.control}
-                  name='password'
+                  name='new_password'
                   render={({ field }) => (
                     <FormItem className='flex w-full max-w-[420px] flex-col'>
                       <FormLabel>Nova Senha</FormLabel>
@@ -131,7 +131,7 @@ export default function ForgotPassword() {
                           value={field.value}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.clearErrors('password');
+                            form.clearErrors('new_password');
                           }}
                         />
                       </FormControl>
