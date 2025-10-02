@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Loader } from 'lucide-react';
+import { ArrowBigLeft, ArrowLeft, Loader } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 import { Link } from '@/components/atoms/link';
@@ -64,14 +64,22 @@ export default function Register() {
         variant: 'success',
       });
       setLoading(false);
-      // router.push(PAGES.HOME);
+      router.push(PAGES.HOME);
     }
   }
 
   return (
     <div className='font-roboto flex min-h-screen w-full items-center justify-center'>
       <Container className='px-0'>
-        <div className='md flex w-full flex-col items-center gap-10 rounded-xl px-8 py-6 max-md:text-white md:max-w-lg md:bg-white'>
+        <div className='flex w-full flex-col items-center gap-10 rounded-xl px-8 py-6 max-md:text-white md:max-w-lg md:bg-white'>
+          <Button
+            className='self-start text-center text-white md:text-black'
+            variant='router'
+            size='icon'
+            onClick={() => router.back()}
+          >
+            <ArrowLeft className='ml-1 h-5 w-5' />
+          </Button>
           <h1 className='text-center text-[2.625rem]/[110%] font-bold md:text-5xl'>
             Cadastre-se <span className='text-primary-100'>gratuitamente</span>
           </h1>

@@ -3,7 +3,6 @@
 import { Toast } from '@/components/atoms/toast';
 import { useState } from 'react';
 import { PAGES } from '@/enums/pages.enum';
-import { LoginAction } from '@/actions/login.actions';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,11 +15,8 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Loader } from 'lucide-react';
+import { ArrowLeft, Loader } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-import { Link } from '@/components/atoms/link';
-import { FcGoogle } from 'react-icons/fc';
 import Image from 'next/image';
 import LogoRV from 'public/images/risk-vision-logo.svg';
 import { Container } from '@/components/atoms/container';
@@ -76,6 +72,14 @@ export default function ForgotPassword() {
     <div className='font-roboto flex min-h-screen w-full items-center justify-center'>
       <Container className='px-6'>
         <div className='flex w-full flex-col items-center gap-10 rounded-xl bg-white px-8 py-6 text-black'>
+          <Button
+            className='self-start text-center'
+            variant='router'
+            size='icon'
+            onClick={() => router.back()}
+          >
+            <ArrowLeft className='ml-1 h-5 w-5' />
+          </Button>
           <Image src={LogoRV} alt='RiskVision' loading='eager' />
           <h1 className='text-center text-[2.625rem]/[110%] font-bold md:text-5xl'>
             Esqueceu a <span className='text-primary-100'>senha?</span>
