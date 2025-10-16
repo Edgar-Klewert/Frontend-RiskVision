@@ -37,6 +37,13 @@ jobs:
       - name: Lint
         run: pnpm run lint
 
+      - name: Debug legacy files
+        run: |
+          echo "Checking for legacy Next.js files..."
+          git ls-files | grep -Ei '(^|/)pages/_document\.(t|j)sx?$' || true
+          git ls-files | grep -Ei '(^|/)(pages|src/pages)/404\.(t|j)sx?$' || true
+          git ls-files | grep -Ei '(^|/)src/.*/_document\.(t|j)sx?$' || true
+
       - name: Run build
         run: pnpm build
         env:
