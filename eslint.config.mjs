@@ -12,10 +12,15 @@ const compat = new FlatCompat({
     allConfig: js.configs.all
 });
 
-export default defineConfig([{
-    extends: compat.extends("next/core-web-vitals", "next/typescript", "next", "prettier"),
-
-    rules: {
-        "react/no-unescaped-entities": "off",
+export default defineConfig([
+    {
+        ignores: [".next/**", "node_modules/**"],
     },
-}]);
+    {
+        extends: compat.extends("next/core-web-vitals", "next/typescript", "next", "prettier"),
+
+        rules: {
+            "react/no-unescaped-entities": "off",
+        },
+    },
+]);
